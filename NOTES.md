@@ -64,7 +64,13 @@ Chosen for its first-class CSV handling, vectorized operations, and straightforw
 ## Schema Decisions
 
 **Snapshot 1 column names are canonical**
-The reconciliation uses snapshot 1's column names (`sku`, `name`, `quantity`) as the standard. Snapshot 2's columns (`sku`, `product_name`, `qty`) are mapped to match. Columns not relevant to reconciliation (`location`, `last_counted` from snapshot 1; `warehouse`, `updated_at` from snapshot 2) are excluded.
+The reconciliation uses snapshot 1's column names (`sku`, `name`, `quantity`, `location`, `last_counted`) as the standard. All snapshot 2 columns are mapped to these names (`product_name`→`name`, `qty`→`quantity`, `warehouse`→`location`, `updated_at`→`last_counted`). No columns are excluded — all data is preserved for auditability.
 
-**SKU formatting anomalies in snapshot 2 are flagged, not normalized**
-SKUs like `SKU005`, `sku-008`, and `SKU018` that don't match the canonical `SKU-###` format are treated as data quality issues and excluded from reconciliation rather than silently corrected.
+**Rows with invalid quantities (< 0) are flagged and excluded from reconciliation**
+Negative quantities are treated as unrecoverable data errors. Like conflicting descriptions, they are flagged in `data_quality_issues.invalid_quantity` and excluded from unchanged/changed/added/removed totals.
+
+**SKU formatting anomalies are flagged and preserved, not normalized or excluded**
+SKUs like `SKU005`, `sku-008`, and `SKU018` that don't match the canonical `SKU-###` format are flagged in `data_quality_issues.schema_mismatch` but still passed through reconciliation. Because they don't match any snapshot 1 SKU, they will appear as `added`. This preserves evidence and avoids silent data loss.
+
+**Whitespace in name fields is stripped silently**
+Leading and trailing whitespace in name values is normalized before comparison. No formatting issue is raised — stripping is treated as routine cleanup, not a reportable anomaly.

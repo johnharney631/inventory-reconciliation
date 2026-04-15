@@ -4,16 +4,21 @@
   "canonical_columns": {
     "sku": "sku",
     "name": "name",
-    "quantity": "quantity"
+    "quantity": "quantity",
+    "location": "location",
+    "last_counted": "last_counted"
+
   },
 
-  "snapshot_1_excluded_columns": ["location", "last_counted"],
+ 
 
   "snapshot_2_mapping": {
     "sku": "sku",
     "name": "product_name",
-    "quantity": "qty"
-  },
+    "quantity": "qty",
+    "location": "warehouse",
+    "last_counted": "updated_at"
 
-  "snapshot_2_excluded_columns": ["warehouse", "updated_at"]
+  }
+ 
 }

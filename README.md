@@ -1,5 +1,29 @@
 # Inventory Reconciliation
 
+This repository contains my solution to the inventory reconciliation take-home exercise.
+
+The implementation follows a test-first workflow and includes a small set of control artifacts to demonstrate an AI-forward, harnessed approach to software delivery. The goal was to keep the Python implementation simple while making the project structure, validation, and execution flow explicit.
+
+## Project Structure
+
+- `reconcile.py` — reconciliation script
+- `tests/` — test coverage for reconciliation logic and anomaly handling
+- `output/` — generated reconciliation report
+- `NOTES.md` — key decisions, assumptions, data-quality findings, and approach
+- `AGENT_INSTRUCTIONS.md`, `AGENTS.md`, and supporting control artifacts — workflow and validation context for AI-directed implementation
+
+## How to Run
+
+Install dependencies, then run:
+
+bash
+pytest
+python reconcile.py
+
+## Original Assignment
+
+# Inventory Reconciliation
+
 ## Background
 
 You're working with inventory data from a warehouse management system. Two snapshots were taken a week apart, and you need to reconcile them to understand what changed.
@@ -50,3 +74,6 @@ The data may contain quality issues typical of real-world systems. Your solution
 
 Push your completed work to your repository and let us know when you're done.
 
+```
+
+```

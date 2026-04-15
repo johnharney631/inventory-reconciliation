@@ -1,0 +1,24 @@
+{
+  "_description": "Defines expected behaviors and anomaly conditions used to validate reconciliation logic",
+
+  "rules": {
+    "aggregate_same_sku_same_description": true,
+    "flag_conflicting_descriptions": true,
+    "exclude_conflicts_from_totals": true
+  },
+
+  "expected_categories": [
+    "unchanged",
+    "changed",
+    "added",
+    "removed"
+  ],
+
+  "anomaly_types": [
+    "conflicting_descriptions_for_sku",
+    "duplicate_rows_same_description",
+    "invalid_quantity",
+    "formatting_issues",
+    "schema_mismatch"
+  ]
+}

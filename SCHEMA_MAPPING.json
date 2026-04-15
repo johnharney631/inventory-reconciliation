@@ -1,0 +1,19 @@
+{
+  "_description": "Defines canonical schema based on snapshot 1 and mapping rules for snapshot 2",
+
+  "canonical_columns": {
+    "sku": "sku",
+    "name": "name",
+    "quantity": "quantity"
+  },
+
+  "snapshot_1_excluded_columns": ["location", "last_counted"],
+
+  "snapshot_2_mapping": {
+    "sku": "sku",
+    "name": "product_name",
+    "quantity": "qty"
+  },
+
+  "snapshot_2_excluded_columns": ["warehouse", "updated_at"]
+}

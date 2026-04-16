@@ -1,0 +1,45 @@
+# .claudeignore - Stop the Token Bleed
+
+# Dependencies (Massive token sinks)
+
+node_modules/
+bower_components/
+env/
+venv/
+.venv/
+
+# Version Control
+
+.git/
+.svn/
+.hg/
+
+# Build & Dist
+
+dist/
+build/
+out/
+_.exe
+_.dll
+\*.so
+
+# Large Data & Snapshots (Prevents reading entire files by mistake)
+
+# Only remove these if you want Claude to read the WHOLE file into memory
+
+_.csv
+_.parquet
+\*.jsonl
+
+# But keep your orchestration files visible!
+
+!SCHEMA_MAPPING.json
+!TEST_TRUTHS.json
+
+# IDE & OS Junk
+
+.vscode/
+.idea/
+.DS_Store
+\*.log
+Thumbs.db

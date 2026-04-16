@@ -1,10 +1,6 @@
 # BUSINESS_CONTEXT.md
 
-Defines the business purpose of inventory reconciliation.
-
-Compare two snapshots to determine:
-- what changed
-- what was added or removed
-- what data issues exist
-
-Outputs must support auditability and clarity.
+- **Project:** Inventory Reconciliation (POC)
+- **Goal:** Identify discrepancies between Source of Truth (Snapshot 1) and Warehouse Export (Snapshot 2).
+- **Critical Success Factor:** Zero loss of SKU data; all anomalies must be accounted for in the final JSON.
+- **Priority:** Accuracy over speed. If data is ambiguous, flag as an anomaly.

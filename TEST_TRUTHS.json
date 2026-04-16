@@ -1,24 +1,28 @@
 {
-  "_description": "Defines expected behaviors and anomaly conditions used to validate reconciliation logic",
-
-  "rules": {
-    "aggregate_same_sku_same_description": true,
-    "flag_conflicting_descriptions": true,
-    "exclude_conflicts_from_totals": true
+  "_description": "Logic gates for data validation to minimize processing loops.",
+  "validation_logic": {
+    "invalid_quantity": {
+      "condition": "value <= 0 OR value is non-numeric",
+      "action": "move_to_data_quality_issues"
+    },
+    "conflicting_descriptions_for_sku": {
+      "condition": "multiple descriptions found for single SKU after aggregation",
+      "action": "flag_as_anomaly",
+      "exclude_from_math": true
+    },
+    "schema_mismatch": {
+      "required_fields": ["SKU", "Description", "Quantity"],
+      "action": "abort_and_report_missing_columns"
+    }
   },
-
-  "expected_categories": [
-    "unchanged",
-    "changed",
-    "added",
-    "removed"
-  ],
-
-  "anomaly_types": [
-    "conflicting_descriptions_for_sku",
-    "duplicate_rows_same_description",
-    "invalid_quantity",
-    "formatting_issues",
-    "schema_mismatch"
-  ]
+  "aggregation_rules": {
+    "primary_key": "SKU",
+    "merge_strategy": {
+      "Quantity": "sum",
+      "Description": "distinct_count_check"
+    }
+  },
+  "reporting_precision": {
+    "total_sum_check": "Sum(unchanged + changed + removed) must equal Source Total"
+  }
 }
